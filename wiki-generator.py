@@ -5,6 +5,20 @@ from markdown.extensions.toc import TocExtension
 import os
 import sys
 
+class github_user:
+    def __init__(self, img_url, username, email):
+        self.img_url = img_url
+        self.username = username
+        self.email = email
+
+def append_codeowners(soup, wiki_path):
+    with open(wiki_path+"CODEOWNERS", 'r') as f:
+        text = f.readlines()
+    # Find most specific file path match
+    for line in text:
+        line.split(":")
+    a=1/0
+
 def make_dir(folder_path):
     dir = folder_path.split("/")
     dir.pop()
@@ -19,10 +33,13 @@ def append_stylesheet(soup):
     stylesheet_link_tag = BeautifulSoup('<link rel="stylesheet" href="{0}"/>'.format(webroot+stylesheet_file), "html.parser")
     soup.head.insert(0, stylesheet_link_tag)
 
-def append_images_ref(text):
-    a=1/0
+def append_attachments_ref(soup, webroot, attachments_path):
+    for a in soup.findAll('img'):
+        a['src'] = a['src'].replace('.attachments/', webroot+attachments_path+'/')
+    for a in soup.findAll('a'):
+        a['href'] = a['href'].replace('.attachments/', webroot+attachments_path+'/')
     
-def append_search_and_index(text):
+def append_search_and_index(soup):
     a=1/0
 
 def make_doc_from_body(body):
@@ -39,8 +56,9 @@ def convert_and_save_file(src_path, target_path):
     soup = BeautifulSoup(html, "html.parser")
 
     append_stylesheet(soup)
-    append_images_ref(soup)
-    append_search_and_index(soup)
+    append_attachments_ref(soup, webroot, attachments_path)
+    #append_search_and_index(soup)
+    #append_codeowners(soup)
 
     make_dir(target_path)
 
@@ -54,7 +72,7 @@ opts, args = getopt.getopt(argv, 'w:s:i:r:')
 
 input_wiki_path = None
 stylesheet_path = None
-images_path = None
+attachments_path = None
 webroot = None
 
 for k, v in opts:
@@ -63,7 +81,7 @@ for k, v in opts:
     if k == "-s":
         stylesheet_path = v
     if k == "-i":
-        images_path = v
+        attachments_path = v
     if k == "-r":
         webroot = v
 
