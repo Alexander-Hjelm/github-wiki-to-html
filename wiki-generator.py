@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 import getopt
 import markdown
 from markdown.extensions.toc import TocExtension
@@ -13,8 +14,10 @@ def make_dir(folder_path):
 def append_toc(text):
     return "[TOC]\n"+text
 
-def append_stylesheet(text):
-    a=1/0
+def append_stylesheet(soup):
+    stylesheet_file = stylesheet_path.split("/").pop()
+    stylesheet_link_tag = BeautifulSoup('<link rel="stylesheet" href="{0}"/>'.format(webroot+stylesheet_file), "html.parser")
+    soup.head.insert(0, stylesheet_link_tag)
 
 def append_images_ref(text):
     a=1/0
@@ -22,19 +25,27 @@ def append_images_ref(text):
 def append_search_and_index(text):
     a=1/0
 
+def make_doc_from_body(body):
+    return "<html><head><title>Title</title></head><body>{0}</body></html>".format(body)
+
 def convert_and_save_file(src_path, target_path):
     with open(src_path, 'r') as f:
         text = f.read()
-        text = append_toc(text)
-        text = append_stylesheet(text)
-        text = append_images_ref(text)
-        text = append_search_and_index(text)
-        html = markdown.markdown(text, extensions=[TocExtension(baselevel=2, title='Contents')])
+
+    text = append_toc(text)
+
+    body = markdown.markdown(text, extensions=[TocExtension(baselevel=2, title='Contents')])
+    html = make_doc_from_body(body)
+    soup = BeautifulSoup(html, "html.parser")
+
+    append_stylesheet(soup)
+    append_images_ref(soup)
+    append_search_and_index(soup)
 
     make_dir(target_path)
 
     with open(target_path, 'w') as f:
-        f.write(html)
+        f.write(soup.prettify())
 
 ### Argument parsing
 
@@ -67,10 +78,7 @@ if not webroot:
 
 for root, dirs, files in os.walk(input_wiki_path, topdown=False):
    for name in files:
-       source_path = os.path.join(root, name)
-       target_path = "{0}{1}.html".format(webroot, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
-       convert_and_save_file(source_path, target_path)
-
-   for name in dirs:
-      print(os.path.join(root, name))
-
+       if(name.endswith(".md")):
+            source_path = os.path.join(root, name)
+            target_path = "{0}{1}.html".format(webroot, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
+            convert_and_save_file(source_path, target_path)
