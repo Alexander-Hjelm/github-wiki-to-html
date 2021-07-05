@@ -1,1 +1,1 @@
-python3 wiki-generator.py -w ../Internal.wiki/ -s stylesheet.css -i images -r webroot
+python3 wiki-generator.py -w ../Internal.wiki/ -s stylesheet.css -i images -r webroot/
