@@ -1,1 +1,1 @@
-python3 wiki-generator.py -w ../Internal.wiki/ -s stylesheet.css -i images -r ~/home/dev/github-wiki-to-html/webroot/
+python3 wiki-generator.py -w /home/groove/dev/Internal.wiki/ -s stylesheet.css -j script.js -i images -r /home/groove/dev/github-wiki-to-html/webroot/
