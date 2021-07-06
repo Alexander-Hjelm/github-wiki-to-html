@@ -28,9 +28,9 @@ def make_dir(folder_path):
 def append_toc(text):
     return "[TOC]\n"+text
 
-def append_stylesheet(soup):
-    stylesheet_file = stylesheet_path.split("/").pop()
-    stylesheet_link_tag = BeautifulSoup('<link rel="stylesheet" href="{0}"/>'.format(webroot+stylesheet_file), "html.parser")
+def append_stylesheet(soup, webroot, stylesheet_path):
+    #stylesheet_file = stylesheet_path.split("/").pop()
+    stylesheet_link_tag = BeautifulSoup('<link rel="stylesheet" href="{0}"/>'.format(webroot+stylesheet_path), "html.parser")
     soup.head.insert(0, stylesheet_link_tag)
 
 def append_attachments_ref(soup, webroot, attachments_path):
@@ -39,13 +39,28 @@ def append_attachments_ref(soup, webroot, attachments_path):
     for a in soup.findAll('a'):
         a['href'] = a['href'].replace('.attachments/', webroot+attachments_path+'/')
     
-def append_search_and_index(soup):
-    a=1/0
+def append_search_and_index(soup, input_wiki_path):
+    #Generate index
+    index = {}
+    for root, dirs, files in os.walk(input_wiki_path, topdown=False):
+        for name in files:
+            if(name.endswith(".md")):
+                path = os.path.join(root, name)
+                current_level = index
+                for part in path.split('/'):
+                    part = part.replace(".md", '')
+                    if not part in current_level.keys():
+                        current_level[part] = {}
+                    current_level = current_level[part]
+    
+    
+    print(index)
+
 
 def make_doc_from_body(body):
     return "<html><head><title>Title</title></head><body>{0}</body></html>".format(body)
 
-def convert_and_save_file(src_path, target_path):
+def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_path, attachments_path):
     with open(src_path, 'r') as f:
         text = f.read()
 
@@ -55,9 +70,9 @@ def convert_and_save_file(src_path, target_path):
     html = make_doc_from_body(body)
     soup = BeautifulSoup(html, "html.parser")
 
-    append_stylesheet(soup)
+    append_stylesheet(soup, webroot, stylesheet_path)
     append_attachments_ref(soup, webroot, attachments_path)
-    #append_search_and_index(soup)
+    append_search_and_index(soup, input_wiki_path)
     #append_codeowners(soup)
 
     make_dir(target_path)
@@ -99,4 +114,4 @@ for root, dirs, files in os.walk(input_wiki_path, topdown=False):
        if(name.endswith(".md")):
             source_path = os.path.join(root, name)
             target_path = "{0}{1}.html".format(webroot, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
-            convert_and_save_file(source_path, target_path)
+            convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, attachments_path)
