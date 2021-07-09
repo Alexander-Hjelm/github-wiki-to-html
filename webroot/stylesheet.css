@@ -437,17 +437,23 @@ body {
     width: 65%;
   }
 
-  #index {
-    float: right;
-    width: 30%;
-  }
-
   #codeowners {
-    float: right;
-    width: 30%;
     text-align: right
   }
 
   .gh_avatar {
     width: 50px;
+  }
+
+  .content_td {
+    vertical-align: top;
+    border: none;
+  }
+
+  #main_content_td {
+    width: 69%;
+  }
+
+  #sidebar_td {
+    width: 30%;
   }

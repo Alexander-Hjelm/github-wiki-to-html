@@ -9,7 +9,7 @@ import glob
 from github import Github
 
 # Config
-gh_token = "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"
+gh_token = "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"
 gh_users_cache = {}
 
 class github_user:
@@ -29,7 +29,7 @@ def query_github_user(username):
     gh_users_cache[username] = gh_user
     return gh_user
 
-def append_codeowners(soup, wiki_path, file_path):
+def append_codeowners(wiki_path, file_path):
     with open(wiki_path+"CODEOWNERS", 'r') as f:
         text = f.readlines()
     # Find most specific file path match
@@ -72,7 +72,7 @@ def append_codeowners(soup, wiki_path, file_path):
         img["class"] = "gh_avatar"
         div.append(img)
 
-    soup.body.append(div)
+    return div
 
 def make_dir(folder_path):
     dir = folder_path.split("/")
@@ -109,7 +109,7 @@ def build_index_html(index, ul, level, webroot):
         ul.append(li)
         build_index_html(index[k], ul, level+1, webroot)
 
-def append_search_and_index(soup, input_wiki_path, webroot):
+def append_search_and_index(input_wiki_path, webroot):
     #Generate index
     index = {}
     for root, dirs, files in os.walk(input_wiki_path, topdown=False):
@@ -135,10 +135,10 @@ def append_search_and_index(soup, input_wiki_path, webroot):
     build_index_html(index, ul, 0, webroot)
     div.append(input)
     div.append(ul)
-    soup.body.append(div)
+    return div
     
 def make_doc_from_body(body):
-    return "<html><head><title>Title</title></head><body><div id=main_content>{0}</div></body></html>".format(body)
+    return "<html><head><title>Title</title></head><body><table><tr><td id='main_content_td' class='content_td'><div id=main_content>{0}</td><td id='sidebar_td' class='content_td'></td></tr></table></div></body></html>".format(body)
 
 def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot):
     with open(src_path, 'r') as f:
@@ -152,11 +152,13 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
 
     append_head_links(soup, webroot, stylesheet_path, script_path)
     append_attachments_ref(soup, webroot, attachments_path)
-    append_codeowners(soup, input_wiki_path, src_path)
-    append_search_and_index(soup, input_wiki_path, webroot)
+    codeowners_div = append_codeowners(input_wiki_path, src_path)
+    search_index_div = append_search_and_index(input_wiki_path, webroot)
 
+    sidebar_td = soup.find("td", {"id": "sidebar_td"})
+    sidebar_td.append(codeowners_div)
+    sidebar_td.append(search_index_div)
     make_dir(target_path)
- 
     with open(target_path, 'w') as f:
         f.write(soup.prettify())
 
