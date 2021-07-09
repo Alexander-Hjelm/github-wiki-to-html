@@ -1,3 +1,4 @@
+from enum import EnumMeta
 from bs4 import BeautifulSoup
 import getopt
 import markdown
@@ -5,12 +6,28 @@ from markdown.extensions.toc import TocExtension
 import os
 import sys
 import glob
+from github import Github
+
+# Config
+gh_token = "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"
+gh_users_cache = {}
 
 class github_user:
-    def __init__(self, img_url, username, email):
+    def __init__(self, img_url, name, username, email):
         self.img_url = img_url
+        self.name = name
         self.username = username
         self.email = email
+
+def query_github_user(username):
+    if username in gh_users_cache:
+        return gh_users_cache[username]
+    token = os.getenv('GITHUB_TOKEN', gh_token)
+    g = Github(token)
+    user = g.get_user(username)
+    gh_user = github_user(user.avatar_url, user.name, user.login, user.email)
+    gh_users_cache[username] = gh_user
+    return gh_user
 
 def append_codeowners(soup, wiki_path, file_path):
     with open(wiki_path+"CODEOWNERS", 'r') as f:
@@ -41,7 +58,19 @@ def append_codeowners(soup, wiki_path, file_path):
     div['id']="codeowners"
 
     for user in codeowners_out:
-        div.append(user+", ")
+        p = BeautifulSoup("<p></p>", 'html.parser').p
+        a = BeautifulSoup("<a></a>", 'html.parser').a
+        gh_user = query_github_user(user)
+        a["href"] = "https://github.com/{}".format(gh_user.username)
+        a.append(gh_user.name+" (" + gh_user.username +")")
+        if gh_user.email != None:
+            a.append("- "+gh_user.email)
+        p.append(a)
+        div.append(p)
+        img = BeautifulSoup("<img></img>", 'html.parser').img
+        img["src"] = gh_user.img_url
+        img["class"] = "gh_avatar"
+        div.append(img)
 
     soup.body.append(div)
 
@@ -127,7 +156,7 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
     append_search_and_index(soup, input_wiki_path, webroot)
 
     make_dir(target_path)
-
+ 
     with open(target_path, 'w') as f:
         f.write(soup.prettify())
 

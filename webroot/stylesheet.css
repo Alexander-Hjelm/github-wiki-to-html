@@ -445,5 +445,9 @@ body {
   #codeowners {
     float: right;
     width: 30%;
-    text-align: right;
+    text-align: right
+  }
+
+  .gh_avatar {
+    width: 50px;
   }
