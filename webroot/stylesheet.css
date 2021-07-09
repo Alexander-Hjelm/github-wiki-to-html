@@ -432,11 +432,6 @@ body {
     margin-left:8em
   }
 
-  #main_content {
-    float: left;
-    width: 65%;
-  }
-
   #codeowners {
     text-align: right
   }
