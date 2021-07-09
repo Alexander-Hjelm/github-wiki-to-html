@@ -441,3 +441,9 @@ body {
     float: right;
     width: 30%;
   }
+
+  #codeowners {
+    float: right;
+    width: 30%;
+    text-align: right;
+  }

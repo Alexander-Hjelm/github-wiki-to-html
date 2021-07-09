@@ -4,6 +4,7 @@ import markdown
 from markdown.extensions.toc import TocExtension
 import os
 import sys
+import glob
 
 class github_user:
     def __init__(self, img_url, username, email):
@@ -11,13 +12,38 @@ class github_user:
         self.username = username
         self.email = email
 
-def append_codeowners(soup, wiki_path):
+def append_codeowners(soup, wiki_path, file_path):
     with open(wiki_path+"CODEOWNERS", 'r') as f:
         text = f.readlines()
     # Find most specific file path match
+    d = {}
     for line in text:
-        line.split(":")
-    a=1/0
+        if(line == '' or line.startswith('#') or line.startswith('\n')):
+            continue
+        selector = line.split(' ')[0]
+        users = []
+        for word in line.split(' '):
+            if word.startswith('@'):
+                users.append(word[1:].rstrip())
+                d[selector] = users
+    longest_match = 0
+    codeowners_out = None
+    for k in d:
+        matches = glob.glob(wiki_path+k)
+        for m in matches:
+            m_formatted = m.replace("//", '/')
+            if file_path.startswith(m_formatted) and len(m_formatted) > longest_match:
+                longest_match = len(m_formatted)
+                codeowners_out = d[k]
+    
+    # Generate div
+    div = BeautifulSoup("<div></div>", 'html.parser').div
+    div['id']="codeowners"
+
+    for user in codeowners_out:
+        div.append(user+", ")
+
+    soup.body.append(div)
 
 def make_dir(folder_path):
     dir = folder_path.split("/")
@@ -26,7 +52,6 @@ def make_dir(folder_path):
     os.makedirs(dir, exist_ok=True)
 
 def append_toc(text):
-    print(text)
     return ("[TOC]\n"+text).replace("[[_TOC_]]", "")
 
 def append_head_links(soup, webroot, stylesheet_path, script_path):
@@ -41,21 +66,21 @@ def append_attachments_ref(soup, webroot, attachments_path):
     for a in soup.findAll('a'):
         a['href'] = a['href'].replace('.attachments/', webroot+attachments_path+'/')
 
-def build_index_html(index, ul, level):
+def build_index_html(index, ul, level, webroot):
     for k in index.keys():
         li = BeautifulSoup("<li class=element_index_{0}></li>".format(level), 'html.parser').li
         li['id'] = "index_element"
         a = BeautifulSoup("<a></a>", 'html.parser').a
-        a['href'] = k
+        a['href'] = webroot + k + ".html"
         file_name = k
         if(k.endswith('/')):
             file_name = k[:-1]
         a.string = file_name.split('/')[-1]
         li.append(a)
         ul.append(li)
-        build_index_html(index[k], ul, level+1)
+        build_index_html(index[k], ul, level+1, webroot)
 
-def append_search_and_index(soup, input_wiki_path):
+def append_search_and_index(soup, input_wiki_path, webroot):
     #Generate index
     index = {}
     for root, dirs, files in os.walk(input_wiki_path, topdown=False):
@@ -68,16 +93,17 @@ def append_search_and_index(soup, input_wiki_path):
                     i = path.find('/', i)+1
                     part = path[:i]
                     part = part.replace(".md/", '')
+                    if part.endswith('/'):
+                        part = part[:-1]
                     if not part in current_level.keys():
                         current_level[part] = {}
                     current_level = current_level[part]
-
     div = BeautifulSoup("<div></div>", 'html.parser').div
     ul = BeautifulSoup("<ul></ul>", 'html.parser')
     input = BeautifulSoup('<input type="text" oninput="search(this.value);"></input>', 'html.parser')
 
     div['id']="index"
-    build_index_html(index, ul, 0)
+    build_index_html(index, ul, 0, webroot)
     div.append(input)
     div.append(ul)
     soup.body.append(div)
@@ -85,7 +111,7 @@ def append_search_and_index(soup, input_wiki_path):
 def make_doc_from_body(body):
     return "<html><head><title>Title</title></head><body><div id=main_content>{0}</div></body></html>".format(body)
 
-def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path):
+def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot):
     with open(src_path, 'r') as f:
         text = f.read()
 
@@ -97,10 +123,8 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
 
     append_head_links(soup, webroot, stylesheet_path, script_path)
     append_attachments_ref(soup, webroot, attachments_path)
-    append_search_and_index(soup, input_wiki_path)
-    #append_codeowners(soup)
-
-    #print(soup.prettify())
+    append_codeowners(soup, input_wiki_path, src_path)
+    append_search_and_index(soup, input_wiki_path, webroot)
 
     make_dir(target_path)
 
@@ -144,4 +168,4 @@ for root, dirs, files in os.walk(input_wiki_path, topdown=False):
        if(name.endswith(".md")):
             source_path = os.path.join(root, name)
             target_path = "{0}{1}.html".format(webroot, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
-            convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path)
+            convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot)
