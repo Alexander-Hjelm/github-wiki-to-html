@@ -26,7 +26,8 @@ def make_dir(folder_path):
     os.makedirs(dir, exist_ok=True)
 
 def append_toc(text):
-    return "[TOC]\n"+text
+    print(text)
+    return ("[TOC]\n"+text).replace("[[_TOC_]]", "")
 
 def append_head_links(soup, webroot, stylesheet_path, script_path):
     stylesheet_link_tag = BeautifulSoup('<link rel="stylesheet" href="{0}"/>'.format(webroot+stylesheet_path), "html.parser")
