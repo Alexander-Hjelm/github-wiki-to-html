@@ -82,7 +82,7 @@ def append_search_and_index(soup, input_wiki_path):
     soup.body.append(div)
     
 def make_doc_from_body(body):
-    return "<html><head><title>Title</title></head><body>{0}</body></html>".format(body)
+    return "<html><head><title>Title</title></head><body><div id=main_content>{0}</div></body></html>".format(body)
 
 def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path):
     with open(src_path, 'r') as f:
