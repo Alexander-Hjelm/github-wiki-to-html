@@ -9,7 +9,7 @@ import glob
 from github import Github
 
 # Config
-gh_token = "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"
+gh_token = "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"
 gh_users_cache = {}
 
 class github_user:
@@ -194,9 +194,16 @@ if not webroot:
 
 ### Convert markdown to html, file by file
 
+written_index_file = False
+
 for root, dirs, files in os.walk(input_wiki_path, topdown=False):
    for name in files:
        if(name.endswith(".md")):
             source_path = os.path.join(root, name)
-            target_path = "{0}{1}.html".format(webroot, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
+            if not written_index_file:
+                target_path = "{0}index.html".format(webroot)
+                written_index_file = True
+            else:
+                target_path = "{0}{1}.html".format(webroot, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
+            print(target_path)
             convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot)
