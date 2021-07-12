@@ -22,6 +22,7 @@ steps:
     inputs:
       scriptSource: 'filePath'
       scriptPath: '$(System.DefaultWorkingDirectory)/wiki-generator.py'
+      arguments: '-w /home/groove/dev/Internal.wiki/ -s stylesheet.css -j script.js -i images -r /home/groove/dev/github-wiki-to-html/webroot/'
 
   - task: AzureStaticWebApp@0
     inputs:
