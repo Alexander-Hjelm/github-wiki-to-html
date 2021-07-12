@@ -10,10 +10,16 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - checkout: self
+    submodules: true
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: Bash@3
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/run.sh'
+
+  - task: AzureStaticWebApp@0
+    inputs:
+      app_location: $(System.DefaultWorkingDirectory)/webroot
+      api_location: 'api'
+      output_location: ''
+      azure_static_web_apps_api_token: $(deployment_token)
