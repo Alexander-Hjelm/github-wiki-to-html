@@ -13,9 +13,10 @@ steps:
   - checkout: self
     submodules: true
 
-- task: Bash@3
-  inputs:
-    filePath: '$(System.DefaultWorkingDirectory)/run.sh'
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '$(System.DefaultWorkingDirectory)/wiki-generator.py'
 
   - task: AzureStaticWebApp@0
     inputs:
