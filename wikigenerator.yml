@@ -33,8 +33,8 @@ steps:
   - task: PythonScript@0
     inputs:
       scriptSource: 'filePath'
-      scriptPath: '$(System.DefaultWorkingDirectory)/wiki-generator.py'
-      arguments: '-w /SampleData.wiki/ -s stylesheet.css -j script.js -i images -r $(System.DefaultWorkingDirectory)/webroot/'
+      scriptPath: '$(System.DefaultWorkingDirectory)/github-wiki-to-html/wiki-generator.py'
+      arguments: '-w $(System.DefaultWorkingDirectory)/sample-data.wiki/ -s stylesheet.css -j script.js -i images -r $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/'
 
   - task: AzureStaticWebApp@0
     inputs:
