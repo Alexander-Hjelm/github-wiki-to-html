@@ -47,3 +47,4 @@ steps:
       api_location: 'api'
       output_location: ''
       azure_static_web_apps_api_token: $(deployment_token)
+      skip_app_build: true
