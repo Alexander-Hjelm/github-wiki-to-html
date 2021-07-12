@@ -9,10 +9,16 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+resources:
+  repositories:
+    - repository: sample-wiki
+      type: github
+      name: alexander-hjelm/sample-wiki
+      endpoint: alexander-hjelm
+
 steps:
   - checkout: self
-    submodules: true
-  - checkout: git@ssh.dev.azure.com:v3/alexanderhjelmsolidify/testproject/confluence-migration-poc
+  - checkout: sample-wiki
 
   - task: PowerShell@2
     inputs:
