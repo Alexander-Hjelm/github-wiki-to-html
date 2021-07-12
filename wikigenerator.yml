@@ -13,7 +13,7 @@ resources:
   repositories:
     - repository: sample-wiki
       type: git
-      name: sample-wiki
+      name: confluence-migration-poc
 
 steps:
   - checkout: self
