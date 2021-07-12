@@ -34,7 +34,7 @@ steps:
     inputs:
       scriptSource: 'filePath'
       scriptPath: '$(System.DefaultWorkingDirectory)/github-wiki-to-html/wiki-generator.py'
-      arguments: '-w $(System.DefaultWorkingDirectory)/sample-wiki/ -s stylesheet.css -j script.js -i images -r $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/'
+      arguments: '-w $(System.DefaultWorkingDirectory)/sample-wiki/ -s stylesheet.css -j script.js -i images -r $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/ -p $(github_token)'
 
   - task: PowerShell@2
     inputs:
