@@ -164,12 +164,13 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
 ### Argument parsing
 
 argv = sys.argv[1:]
-opts, args = getopt.getopt(argv, 'w:s:i:r:j:p:')
+opts, args = getopt.getopt(argv, 'w:s:i:t:r:j:p:')
 
 input_wiki_path = None
 stylesheet_path = None
 script_path = None
 attachments_path = None
+output_path = None
 webroot = None
 gh_token = None
 
@@ -182,11 +183,12 @@ for k, v in opts:
         script_path = v
     if k == "-i":
         attachments_path = v
+    if k == "-t":
+        output_path = v
     if k == "-r":
         webroot = v
     if k == "-p":
         gh_tkoen = v
-
 
 if not input_wiki_path:
     print("Specify argument: -w for path to input wiki")
@@ -204,9 +206,9 @@ for root, dirs, files in os.walk(input_wiki_path, topdown=False):
        if(name.endswith(".md")):
             source_path = os.path.join(root, name)
             if not written_index_file:
-                target_path = "{0}index.html".format(webroot)
+                target_path = "{0}index.html".format(output_path)
                 written_index_file = True
             else:
-                target_path = "{0}{1}.html".format(webroot, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
+                target_path = "{0}{1}.html".format(output_path, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
             print(target_path)
             convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot)
