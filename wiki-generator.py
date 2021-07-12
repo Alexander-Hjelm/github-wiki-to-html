@@ -9,7 +9,7 @@ import glob
 from github import Github
 
 # Config
-gh_token = "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"
+gh_token = "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"
 gh_users_cache = {}
 
 class github_user:
