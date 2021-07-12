@@ -43,7 +43,7 @@ steps:
 
   - task: AzureStaticWebApp@0
     inputs:
-      app_location: $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot
+      app_location: '/webroot'
       api_location: 'api'
       output_location: ''
       azure_static_web_apps_api_token: $(deployment_token)
