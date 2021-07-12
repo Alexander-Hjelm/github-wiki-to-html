@@ -9,7 +9,6 @@ import glob
 from github import Github
 
 # Config
-gh_token = "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"
 gh_users_cache = {}
 
 class github_user:
@@ -165,13 +164,14 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
 ### Argument parsing
 
 argv = sys.argv[1:]
-opts, args = getopt.getopt(argv, 'w:s:i:r:j:')
+opts, args = getopt.getopt(argv, 'w:s:i:r:j:p:')
 
 input_wiki_path = None
 stylesheet_path = None
 script_path = None
 attachments_path = None
 webroot = None
+gh_token = None
 
 for k, v in opts:
     if k == "-w":
@@ -184,6 +184,9 @@ for k, v in opts:
         attachments_path = v
     if k == "-r":
         webroot = v
+    if k == "-p":
+        gh_tkoen = v
+
 
 if not input_wiki_path:
     print("Specify argument: -w for path to input wiki")
