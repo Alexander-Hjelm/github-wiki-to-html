@@ -12,9 +12,8 @@ pool:
 resources:
   repositories:
     - repository: sample-wiki
-      type: github
-      name: alexander-hjelm/sample-wiki
-      endpoint: alexander-hjelm
+      type: git
+      name: sample-wiki
 
 steps:
   - checkout: self
