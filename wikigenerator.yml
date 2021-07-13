@@ -12,9 +12,8 @@ pool:
 resources:
   repositories:
     - repository: sample-wiki
-      type: github
-      name: alexander-hjelm/sample-wiki
-      endpoint: alexander-hjelm
+      type: git
+      name: confluence-migration-poc
 
 steps:
   - checkout: self
@@ -34,7 +33,7 @@ steps:
     inputs:
       scriptSource: 'filePath'
       scriptPath: '$(System.DefaultWorkingDirectory)/github-wiki-to-html/wiki-generator.py'
-      arguments: '-w $(System.DefaultWorkingDirectory)/sample-wiki/ -s stylesheet.css -j script.js -i images -r $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/ -p $(github_token)'
+      arguments: '-w $(System.DefaultWorkingDirectory)/confluence-migration-poc/ -s stylesheet.css -j script.js -i images -t $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/ -r / -p $(github_token)'
 
   - task: PowerShell@2
     inputs:
