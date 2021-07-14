@@ -5,8 +5,16 @@
       "allowedRoles": ["authenticated"]
     },
     {
-        "route": "/test",
-        "allowedRoles": ["authenticated"]
+      "route": "/Decision.html",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/test",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/login",
+      "redirect": "/.auth/login/aad"
     }
   ],
   "navigationFallback": {
