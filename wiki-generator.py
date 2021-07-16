@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import getopt
 import markdown
 from markdown.extensions.toc import TocExtension
+from markdown.extensions.tables import TableExtension
 import os
 import sys
 import glob
@@ -145,7 +146,7 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
 
     text = append_toc(text)
 
-    body = markdown.markdown(text, extensions=[TocExtension(baselevel=2, title='Contents')])
+    body = markdown.markdown(text, extensions=[TocExtension(baselevel=2, title='Contents'), TableExtension()])
     html = make_doc_from_body(body)
     soup = BeautifulSoup(html, "html.parser")
 
