@@ -155,9 +155,9 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
     paragraphs = main_content_div.findAll('p')
     print(main_content_div)
     # Remove [TOC] marker if no table of contents was generated
-    if len(paragraphs) > 0 and paragraphs[0].text.startswith(" [TOC] "):
+    if len(paragraphs) > 0 and paragraphs[0].text.startswith("[TOC]"):
         print(paragraphs[0].text)
-        paragraphs[0].text = paragraphs[0].text.relace(" [TOC] ", "")
+        paragraphs[0].text = paragraphs[0].text.relace("[TOC]", "")
         print(paragraphs[0].text)
 
 
