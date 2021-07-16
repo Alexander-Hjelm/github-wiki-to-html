@@ -154,8 +154,8 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
     # Remove [TOC] marker if no table of contents was generated
     main_content_div = soup.find("div", {"id": "main_content"})
     paragraphs = main_content_div.findAll('p')
-    if len(paragraphs) > 0 and paragraphs[0].text.startswith("[TOC]"):
-        paragraphs[0].text = paragraphs[0].text.replace("[TOC]", "")
+    if len(paragraphs) > 0 and paragraphs[0].string.startswith("[TOC]"):
+        paragraphs[0].string = paragraphs[0].string.replace("[TOC]", "")
 
     append_head_links(soup, webroot, stylesheet_path, script_path)
     append_attachments_ref(soup, webroot, attachments_path)
