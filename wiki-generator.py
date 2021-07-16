@@ -139,7 +139,7 @@ def append_search_and_index(input_wiki_path, webroot):
     return div
     
 def make_doc_from_body(body):
-    return "<html><head><title>Title</title></head><body><table><tr><td id='main_content_td' class='content_td'><div id=main_content>{0}</td><td id='sidebar_td' class='content_td'></td></tr></table></div></body></html>".format(body)
+    return "<html><head><title>Title</title></head><body><table id=main_content_table><tr><td id='main_content_td' class='content_td'><div id=main_content>{0}</td><td id='sidebar_td' class='content_td'></td></tr></table></div></body></html>".format(body)
 
 def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot):
     with open(src_path, 'r') as f:

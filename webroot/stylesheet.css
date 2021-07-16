@@ -452,3 +452,7 @@ body {
   #sidebar_td {
     width: 30%;
   }
+
+  #main_content_table {
+    width: 100%;
+  }
