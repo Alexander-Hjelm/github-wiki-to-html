@@ -4,6 +4,7 @@ import getopt
 import markdown
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.tables import TableExtension
+from markdown.extensions.wikilinks import WikiLinkExtension
 import os
 import sys
 import glob
@@ -146,7 +147,7 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
 
     text = append_toc(text)
 
-    body = markdown.markdown(text, extensions=[TocExtension(baselevel=2, title='Contents'), TableExtension()])
+    body = markdown.markdown(text, extensions=[TocExtension(baselevel=2, title='Contents'), TableExtension(), WikiLinkExtension(base_url=webroot)])
     html = make_doc_from_body(body)
     soup = BeautifulSoup(html, "html.parser")
 
