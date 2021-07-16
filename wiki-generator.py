@@ -149,6 +149,16 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
     html = make_doc_from_body(body)
     soup = BeautifulSoup(html, "html.parser")
 
+    main_content_div = soup.find("div", {"id": "main_content"})
+    paragraphs = main_content_div.findAll('p')
+    print(main_content_div)
+    # Remove [TOC] marker if no table of contents was generated
+    if len(paragraphs) > 0 and paragraphs[0].text.startswith(" [TOC] "):
+        paragraphs[0].text.relace(" [TOC] ", "")
+        print(main_content_div)
+
+
+
     append_head_links(soup, webroot, stylesheet_path, script_path)
     append_attachments_ref(soup, webroot, attachments_path)
     codeowners_div = append_codeowners(input_wiki_path, src_path)
