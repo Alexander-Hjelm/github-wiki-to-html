@@ -1,1 +1,0 @@
-python3 wiki-generator.py -w /home/groove/dev/sample-wiki/ -s stylesheet.css -j script.js -i images -t /home/groove/dev/github-wiki-to-html/webroot/ -r / -p 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 -f http://fulltextsearch.norwayeast.azurecontainer.io
