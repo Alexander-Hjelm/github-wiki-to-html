@@ -19,17 +19,16 @@ class github_user:
         self.username = username
         self.email = email
 
-def query_github_user(username):
+def query_github_user(username, gh_token):
     if username in gh_users_cache:
         return gh_users_cache[username]
-    token = os.getenv('GITHUB_TOKEN', gh_token)
-    g = Github(token)
+    g = Github(gh_token)
     user = g.get_user(username)
     gh_user = github_user(user.avatar_url, user.name, user.login, user.email)
     gh_users_cache[username] = gh_user
     return gh_user
 
-def append_codeowners(wiki_path, file_path):
+def append_codeowners(wiki_path, file_path, gh_token):
     with open(wiki_path+"CODEOWNERS", 'r') as f:
         text = f.readlines()
     # Find most specific file path match
@@ -60,7 +59,7 @@ def append_codeowners(wiki_path, file_path):
     for user in codeowners_out:
         p = BeautifulSoup("<p></p>", 'html.parser').p
         a = BeautifulSoup("<a></a>", 'html.parser').a
-        gh_user = query_github_user(user)
+        gh_user = query_github_user(user, gh_token)
         a["href"] = "https://github.com/{}".format(gh_user.username)
         a.append(gh_user.name+" (" + gh_user.username +")")
         if gh_user.email != None:
@@ -150,7 +149,7 @@ def append_full_text_search(full_text_search_api, webroot):
 def make_doc_from_body(body):
     return "<html><head><title>Title</title></head><body><table id=main_content_table><tr><td id='main_content_td' class='content_td'><div id=main_content>{0}</td><td id='sidebar_td' class='content_td'></td></tr></table></div></body></html>".format(body)
 
-def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot, full_text_search_api):
+def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot, full_text_search_api, gh_token):
     with open(src_path, 'r') as f:
         text = f.read()
 
@@ -168,7 +167,7 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
 
     append_head_links(soup, webroot, stylesheet_path, script_path)
     append_attachments_ref(soup, webroot, attachments_path)
-    codeowners_div = append_codeowners(input_wiki_path, src_path)
+    codeowners_div = append_codeowners(input_wiki_path, src_path, gh_token)
     search_index_div = append_search_and_index(input_wiki_path, webroot)
     full_text_search_div = append_full_text_search(full_text_search_api, webroot)
 
@@ -233,4 +232,4 @@ for root, dirs, files in os.walk(input_wiki_path, topdown=False):
             else:
                 target_path = "{0}{1}.html".format(output_path, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
             print(target_path)
-            convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot, full_text_search_api)
+            convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot, full_text_search_api, gh_token)
