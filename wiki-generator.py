@@ -85,10 +85,10 @@ def append_toc(text):
 def append_head_links(soup, webroot, stylesheet_path, script_path):
     stylesheet_link_tag = BeautifulSoup('<link rel="stylesheet" href="{0}"/>'.format(webroot+stylesheet_path), "html.parser")
     script_link_tag = BeautifulSoup('<script src="{0}"/>'.format(webroot+script_path), "html.parser")
-    meta_csp_tag = BeautifulSoup('<meta http-equiv="Content-Security-Policy" content="default-src \'self\' \'unsafe-inline\' https://avatars.githubusercontent.com http://fulltextsearch.norwayeast.azurecontainer.io; connect-src http://fulltextsearch.norwayeast.azurecontainer.io">')
+    #meta_csp_tag = BeautifulSoup('<meta http-equiv="Content-Security-Policy" content="default-src \'self\' \'unsafe-inline\' https://avatars.githubusercontent.com http://fulltextsearch.norwayeast.azurecontainer.io; connect-src http://fulltextsearch.norwayeast.azurecontainer.io">')
     soup.head.insert(0, stylesheet_link_tag)
     soup.head.insert(1, script_link_tag)
-    soup.head.insert(2, meta_csp_tag)
+    #soup.head.insert(2, meta_csp_tag)
 
 def append_attachments_ref(soup, webroot, attachments_path):
     for a in soup.findAll('img'):
