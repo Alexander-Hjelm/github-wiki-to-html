@@ -24,8 +24,8 @@ function search(value)
 
 function full_text_search(value)
 {
-    referer_url = https://zealous-river-0de318e03.azurestaticapps.net
-    api_url = http://fulltextsearch.norwayeast.azurecontainer.io
+    referer_url = "https://zealous-river-0de318e03.azurestaticapps.net"
+    api_url = "http://fulltextsearch.norwayeast.azurecontainer.io"
     search_term = value
     console.log("Got here")
     var search_results_div = document.getElementById('[id^=full_text_search_results]');
