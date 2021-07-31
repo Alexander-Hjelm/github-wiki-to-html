@@ -20,12 +20,10 @@ class github_user:
         self.email = email
 
 def query_github_user(username, gh_token):
-    print(gh_token)
     if username in gh_users_cache:
         return gh_users_cache[username]
     g = Github(gh_token)
     user = g.get_user(username)
-    print(user)
     gh_user = github_user(user.avatar_url, user.name, user.login, user.email)
     gh_users_cache[username] = gh_user
     return gh_user
