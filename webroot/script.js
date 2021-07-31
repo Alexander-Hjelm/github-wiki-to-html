@@ -22,8 +22,9 @@ function search(value)
     });
 }
 
-function full_text_search(api_url, referer_url, search_term)
+function full_text_search(value)
 {
+    search_term = value
     console.log("Got here")
     var search_results_div = document.getElementById('[id^=full_text_search_results]');
     headers = {"ContentType": "text/html"}
