@@ -28,7 +28,7 @@ steps:
     inputs:
       scriptSource: 'filePath'
       scriptPath: '$(System.DefaultWorkingDirectory)/github-wiki-to-html/wiki-generator.py'
-      arguments: '-w $(System.DefaultWorkingDirectory)/confluence-migration-poc/ -s stylesheet.css -j script.js -i images -t $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/ -r / -p $(github_token) -f http://fulltextsearch.norwayeast.azurecontainer.io'
+      arguments: '-w $(System.DefaultWorkingDirectory)/confluence-migration-poc/ -s stylesheet.css -j script.js -i images -t $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/ -r / -p $(gh_token) -f http://fulltextsearch.norwayeast.azurecontainer.io'
 
   - task: AzureStaticWebApp@0
     inputs:
