@@ -1,7 +1,5 @@
-from enum import EnumMeta
 from bs4 import BeautifulSoup
 import getopt
-from flask import sessions
 import markdown
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.tables import TableExtension
