@@ -21,3 +21,12 @@ function search(value)
         }
     });
 }
+
+function full_text_search(api_url, referer_url, search_term)
+{
+    var search_results_div = document.getElementById('[id^=full_text_search_results]');
+    headers = {"ContentType": "text/html"}
+    api_url_formatted = "{0}?search_str={1}&eferer_url={2}".format(api_url, search_term, referer_url)
+    response = requests.post(url = api_url, headers=headers)
+    search_results_div.innerHTML = response
+}

@@ -1,6 +1,7 @@
 from enum import EnumMeta
 from bs4 import BeautifulSoup
 import getopt
+from flask import sessions
 import markdown
 from markdown.extensions.toc import TocExtension
 from markdown.extensions.tables import TableExtension
@@ -137,11 +138,21 @@ def append_search_and_index(input_wiki_path, webroot):
     div.append(input)
     div.append(ul)
     return div
+
+def append_full_text_search(full_text_search_api, webroot):
+    div = BeautifulSoup("<div></div>", 'html.parser').div
+    input = BeautifulSoup('<input type="text" oninput="full_text_search({0}, {1}, this.value);"></input>'.format(full_text_search_api, webroot), 'html.parser')
+    search_results_div = BeautifulSoup("<div></div>", 'html.parser').div
+    div['id']="full_text_search"
+    search_results_div['id'] = "full_text_search_results"
+    div.append(input)
+    div.append(search_results_div)
+    return div
     
 def make_doc_from_body(body):
     return "<html><head><title>Title</title></head><body><table id=main_content_table><tr><td id='main_content_td' class='content_td'><div id=main_content>{0}</td><td id='sidebar_td' class='content_td'></td></tr></table></div></body></html>".format(body)
 
-def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot):
+def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot, full_text_search_api):
     with open(src_path, 'r') as f:
         text = f.read()
 
@@ -161,9 +172,11 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
     append_attachments_ref(soup, webroot, attachments_path)
     codeowners_div = append_codeowners(input_wiki_path, src_path)
     search_index_div = append_search_and_index(input_wiki_path, webroot)
+    full_text_search_div = append_full_text_search(full_text_search_api, webroot)
 
     sidebar_td = soup.find("td", {"id": "sidebar_td"})
     sidebar_td.append(codeowners_div)
+    sidebar_td.append(full_text_search_div)
     sidebar_td.append(search_index_div)
     make_dir(target_path)
     with open(target_path, 'w') as f:
@@ -172,7 +185,7 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
 ### Argument parsing
 
 argv = sys.argv[1:]
-opts, args = getopt.getopt(argv, 'w:s:i:t:r:j:p:')
+opts, args = getopt.getopt(argv, 'w:s:i:t:r:j:p:f:')
 
 input_wiki_path = None
 stylesheet_path = None
@@ -181,6 +194,7 @@ attachments_path = None
 output_path = None
 webroot = None
 gh_token = None
+full_text_search_api = None
 
 for k, v in opts:
     if k == "-w":
@@ -196,7 +210,9 @@ for k, v in opts:
     if k == "-r":
         webroot = v
     if k == "-p":
-        gh_tkoen = v
+        gh_token = v
+    if k == "-f":
+        full_text_search_api = v
 
 if not input_wiki_path:
     print("Specify argument: -w for path to input wiki")
@@ -219,4 +235,4 @@ for root, dirs, files in os.walk(input_wiki_path, topdown=False):
             else:
                 target_path = "{0}{1}.html".format(output_path, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
             print(target_path)
-            convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot)
+            convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot, full_text_search_api)
