@@ -28,10 +28,13 @@ function full_text_search(value)
     api_url = "http://fulltextsearch.norwayeast.azurecontainer.io"
     search_term = value
     console.log("Got here")
-    var search_results_div = document.getElementById('[id^=full_text_search_results]');
-    headers = {"ContentType": "text/html"}
+    //headers = {"ContentType": "text/html"}
     api_url_formatted = api_url+"?search_str="+search_term+"&eferer_url="+referer_url
-    response = requests.post(url = api_url, headers=headers)
-    console.log(response)
-    search_results_div.innerHTML = response
+    //response = requests.post(url = api_url, headers=headers)
+    fetch(api_url_formatted).then( function(response) {
+        console.log(response)
+        var search_results_div = document.getElementById('[id^=full_text_search_results]');
+        search_results_div.innerHTML = response
+    })
+
 }
