@@ -33,8 +33,9 @@ function full_text_search()
     //response = requests.post(url = api_url, headers=headers)
     fetch(api_url_formatted).then( function(response) {
         console.log(response)
-        var search_results_div = document.getElementById('full_text_search_results');
-        search_results_div.innerHTML = response.body;
-    })
-
+        response.text().then(function(text) {
+            var search_results_div = document.getElementById('full_text_search_results');
+            search_results_div.innerHTML = text;
+        });
+    });
 }
