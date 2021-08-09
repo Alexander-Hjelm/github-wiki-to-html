@@ -29,7 +29,7 @@ function full_text_search(value)
     search_term = value
     console.log("Got here")
     //headers = {"ContentType": "text/html"}
-    api_url_formatted = api_url+"?search_str="+search_term+"&eferer_url="+referer_url
+    api_url_formatted = api_url+"?search_str="+search_term+"&referer_url="+referer_url
     //response = requests.post(url = api_url, headers=headers)
     fetch(api_url_formatted).then( function(response) {
         console.log(response)
