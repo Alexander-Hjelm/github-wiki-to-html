@@ -33,7 +33,7 @@ function full_text_search(value)
     //response = requests.post(url = api_url, headers=headers)
     fetch(api_url_formatted).then( function(response) {
         console.log(response)
-        var search_results_div = document.getElementById('[id^=full_text_search_results]');
+        var search_results_div = document.getElementById('full_text_search_results');
         search_results_div.innerHTML = response
     })
 
