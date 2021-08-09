@@ -25,7 +25,7 @@ function search(value)
 function full_text_search(value)
 {
     referer_url = "https://zealous-river-0de318e03.azurestaticapps.net"
-    api_url = "http://fulltextsearch.norwayeast.azurecontainer.io"
+    api_url = "https://fulltextsearch.norwayeast.azurecontainer.io"
     search_term = value
     console.log("Got here")
     //headers = {"ContentType": "text/html"}
