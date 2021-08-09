@@ -21,7 +21,7 @@
     "rewrite": "index.html"
   },
   "globalHeaders": {
-    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
+    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline' https://fulltextsearch.norwayeast.azurecontainer.io; object-src 'none'"
   },
   "mimeTypes": {
     ".json": "text/json"
