@@ -87,7 +87,6 @@ def append_head_links(soup, webroot, stylesheet_path, script_path):
     script_link_tag = BeautifulSoup('<script src="{0}"/>'.format(webroot+script_path), "html.parser")
     soup.head.insert(0, stylesheet_link_tag)
     soup.head.insert(1, script_link_tag)
-    soup.head.insert(2, meta_csp_tag)
 
 def append_attachments_ref(soup, webroot, attachments_path):
     for a in soup.findAll('img'):
