@@ -128,7 +128,7 @@ def append_search_and_index(input_wiki_path, webroot):
                     current_level = current_level[part]
     div = BeautifulSoup("<div></div>", 'html.parser').div
     ul = BeautifulSoup("<ul></ul>", 'html.parser')
-    input = BeautifulSoup('<input type="text" oninput="search(this.value);"></input>', 'html.parser')
+    input = BeautifulSoup('<input id="full-text-search-input" type="search" onsearch="search(this.value);"></input>', 'html.parser')
 
     div['id']="index"
     build_index_html(index, ul, 0, webroot)
