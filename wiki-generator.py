@@ -179,10 +179,21 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
     with open(target_path, 'w') as f:
         f.write(soup.prettify())
 
-### Argument parsing
+def rewrite_fulltext_search_endpoints(output_path, full_text_search_endpoint, referer_endpoint):
+    with open(output_path+"script.js", 'r') as f:
+        lines = [line.rstrip() for line in f]
+    for i in range(0, len(lines)):
+        l = lines[i]
+        if l.find("referer_url = ") != -1:
+            lines[i] = "    referer_url = \""+referer_endpoint+"\""
+        elif l.find("api_url = ") != -1:
+            lines[i] = "    api_url = \""+full_text_search_endpoint+"\""
+    with open(output_path+"script.js", 'w') as f:
+        f.write('\n'.join(lines) + '\n')
 
+### Argument parsing
 argv = sys.argv[1:]
-opts, args = getopt.getopt(argv, 'w:s:i:t:r:j:p:f:')
+opts, args = getopt.getopt(argv, 'w:s:i:t:r:j:p:f:e:')
 
 input_wiki_path = None
 stylesheet_path = None
@@ -191,7 +202,8 @@ attachments_path = None
 output_path = None
 webroot = None
 gh_token = None
-full_text_search_api = None
+full_text_search_endpoint = None
+referer_endpoint = None
 
 for k, v in opts:
     if k == "-w":
@@ -209,7 +221,9 @@ for k, v in opts:
     if k == "-p":
         gh_token = v
     if k == "-f":
-        full_text_search_api = v
+        full_text_search_endpoint = v
+    if k == "-e":
+        referer_endpoint = v
 
 if not input_wiki_path:
     print("Specify argument: -w for path to input wiki")
@@ -217,6 +231,9 @@ if not input_wiki_path:
 if not webroot:
     print("Specify argument: -r for webroot")
     exit()
+
+### Rewrite endpoints in js files
+rewrite_fulltext_search_endpoints(output_path, full_text_search_endpoint, referer_endpoint)
 
 ### Convert markdown to html, file by file
 
@@ -232,4 +249,4 @@ for root, dirs, files in os.walk(input_wiki_path, topdown=False):
             else:
                 target_path = "{0}{1}.html".format(output_path, source_path.replace(input_wiki_path, '', 1).replace(".md", '', 1))
             print(target_path)
-            convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot, full_text_search_api, gh_token)
+            convert_and_save_file(source_path, target_path, input_wiki_path, stylesheet_path, script_path, attachments_path, webroot, full_text_search_endpoint, gh_token)
