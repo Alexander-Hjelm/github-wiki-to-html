@@ -15,7 +15,7 @@
     {
       "route": "/logout",
       "redirect": "/.auth/logout"
-    }
+    },
     {
       "route": "/*",
       "allowedRoles": ["authenticated"]

@@ -201,9 +201,9 @@ def rewrite_fulltext_search_endpoints(output_path, full_text_search_endpoint, re
     with open(output_path+"script.js", 'w') as f:
         f.write('\n'.join(lines) + '\n')
 
-def build_and_save_login_page(webroot):
+def build_and_save_login_page(output_path, webroot):
     html = BeautifulSoup("<html><head><title>Log in</title></head><body><a href={0}login><button>Log in</button></a></body></html>".format(webroot), 'html.parser').html
-    with open(webroot+"login.html", 'w') as f:
+    with open(output_path+"login.html", 'w') as f:
         f.write(html.prettify())
     
 
@@ -252,7 +252,7 @@ if not webroot:
 rewrite_fulltext_search_endpoints(output_path, full_text_search_endpoint, referer_endpoint)
 
 ### Generate login page
-build_and_save_login_page(webroot)
+build_and_save_login_page(output_path, webroot)
 
 ### Convert markdown to html, file by file
 written_index_file = False
