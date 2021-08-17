@@ -456,3 +456,7 @@ body {
   #main_content_table {
     width: 100%;
   }
+
+  #fulltext_search_res_keyword {
+    background-color: yellow;
+  }
