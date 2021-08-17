@@ -1,0 +1,1081 @@
+<html>
+ <head>
+  <link href="/home/groove/dev/github-wiki-to-html/webroot/stylesheet.css" rel="stylesheet"/>
+  <script src="/home/groove/dev/github-wiki-to-html/webroot/script.js">
+  </script>
+  <title>
+   Title
+  </title>
+ </head>
+ <body>
+  <table id="main_content_table">
+   <tr>
+    <td class="content_td" id="main_content_td">
+     <div id="main_content">
+      <div class="toc">
+       <span class="toctitle">
+        Contents
+       </span>
+       <ul>
+        <li>
+         <a href="#code">
+          Code
+         </a>
+        </li>
+        <li>
+         <a href="#build-and-release">
+          Build and release
+         </a>
+        </li>
+        <li>
+         <a href="#work-items">
+          Work items
+         </a>
+         <ul>
+          <li>
+           <a href="#microsoft-vsts-work-item-migrator">
+            Microsoft VSTS Work Item Migrator
+           </a>
+           <ul>
+            <li>
+             <a href="#pros">
+              Pros:
+             </a>
+            </li>
+            <li>
+             <a href="#cons">
+              Cons:
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <a href="#nkdagility-azure-devops-migration-tools">
+            nkdAgility Azure DevOps Migration Tools
+           </a>
+           <ul>
+            <li>
+             <a href="#pros_1">
+              Pros:
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <a href="#solidify-work-item-migrator">
+            Solidify Work Item Migrator
+           </a>
+           <ul>
+            <li>
+             <a href="#pros_2">
+              Pros:
+             </a>
+            </li>
+            <li>
+             <a href="#cons_1">
+              Cons:
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <a href="#solidify-jiraazure-devops-migrator">
+            Solidify Jira/Azure DevOps Migrator
+           </a>
+           <ul>
+            <li>
+             <a href="#pros_3">
+              Pros:
+             </a>
+            </li>
+            <li>
+             <a href="#cons_2">
+              Cons:
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li>
+           <a href="#conclusion">
+            Conclusion
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h2 id="code">
+       Code
+      </h2>
+      <p>
+       <a href="https://github.com/git-tfs">
+        TFVC to Git
+       </a>
+       Read more
+       <a href="https://dev.azure.com/solidify/Internal/_wiki/wikis/Internal.wiki?wikiVersion=GBwikiMaster&amp;pagePath=%2FSolidify%20Engineering%20System%2FGoto%20Azure%20DevOps%2FMigrate%20from%20TFVC%20to%20Git%20in%20a%20clean%20way&amp;pageId=31">
+        here
+       </a>
+      </p>
+      <h2 id="build-and-release">
+       Build and release
+      </h2>
+      <p>
+       Use the export/import function builf in to Azure DevOps
+      </p>
+      <h2 id="work-items">
+       Work items
+      </h2>
+      <h3 id="microsoft-vsts-work-item-migrator">
+       <a href="https://github.com/microsoft/vsts-work-item-migrator">
+        Microsoft VSTS Work Item Migrator
+       </a>
+      </h3>
+      <p>
+       Ett enkelt open source cross platform verktyg som ska funka på både TFS och Azure DevOps. Det har begränsade konfigurationsmöjligheter dock (man kan inte konfigurera varken mall eller mappa work item typer eller fält) och det är oklart om det funkar att migrera ett Scrum-projekt till ett Agile-projekt, jag har inte fått det att funka och jag har inte hittat varken dokumentation eller konfigurering som stödjer det. Jag har inte heller lyckats migrera ett Scrum-projekt till ett annat Scrum-projekt utan att work items ignoreras och det finns ingen vidare dokumentation eller vettig applikationsinformation heller så jag vet inte varför migreringen tappar eller inte hittar alla work items.
+Det finns inget färdigkompilerat program att köra utan man måste ladda ner källkoden och ställa sig i rätt mapp med ett cmd line tool.
+Koden använder REST-API:erna på ett bra sätt och kör .NET Core vilket känns modernt.
+      </p>
+      <h4 id="pros">
+       Pros:
+      </h4>
+      <p>
+       Byggt på .NET Core så det är plattformsoberoende
+Använder REST-API:erna
+      </p>
+      <h4 id="cons">
+       Cons:
+      </h4>
+      <p>
+       Inget färdigkompilerat program att använda
+Begränsade konfigurationsmöjligheter
+Jag har inte fått det att funka fullt ut
+Migrerar inte mellan templates (?)
+Undermålig dokumentation
+      </p>
+      <h3 id="nkdagility-azure-devops-migration-tools">
+       <a href="https://github.com/nkdAgility/azure-devops-migration-tools">
+        nkdAgility Azure DevOps Migration Tools
+       </a>
+      </h3>
+      <p>
+       Ett kraftfullt open source verktyg som funkar på både TFS och Azure DevOps. Man kan konfigurera väldigt mycket, nästan för mycket så det är en hel del att sätta sig in i innan man får till en konfigurering som funkar att köra, men när man väl börjar lära sig hur konfigurationen funkar är det väldigt användbart och det funkar bra att migrera ett Scrum-projekt till ett Agile-projekt t ex. Man kan göra väldigt avancerade filtreringar och regex-uttryck i konfigureringen vilket gör verktyget otroligt kraftfullt och flexibelt. Det avråds att använda detta verktyg för migrering av testplaner och testsviter dock.
+      </p>
+      <h4 id="pros_1">
+       Pros:
+      </h4>
+      <p>
+       Kraftfullt och flexibelt
+Otroligt konfigurerbart
+Enkel installation via Chocolatey
+Bra dokumentation
+Sparar analytics i Application Insights för bättre felsökning och tracking (valbart)
+Migrerar mellan olika templates
+      </p>
+      <p>
+       Cons:
+Alla konfigurationsmöjligheter gör en lite förvirrad i början
+Migrering av testplaner och testsviter funkar inte trots att konfigurationen för det finns
+      </p>
+      <h3 id="solidify-work-item-migrator">
+       Solidify Work Item Migrator
+      </h3>
+      <p>
+       Ett verktyg som har lite begränsning i att man inte kan migrera ett Scrum-projekt till ett Agile-projekt eftersom man inte kan konfigurera varken mall eller mappa work item typer eller fält och det känns lite hackigt i och med att man först måste skapa en lokal databas med hjälp av script. Det går däremot att migrera testartfakter även om det finns andra verktyg som ska fungera smidigare. För en 1:1 migrering så funkar verktyget bra.
+      </p>
+      <h4 id="pros_2">
+       Pros:
+      </h4>
+      <p>
+       Funkar smidigt för 1:1 migreringar
+Migrerar testartefakter
+      </p>
+      <h4 id="cons_1">
+       Cons:
+      </h4>
+      <p>
+       Ingen konfigurering direkt
+Migrerar inte mellan olika templates
+Man måste sätta upp en databas för migreringen
+      </p>
+      <h3 id="solidify-jiraazure-devops-migrator">
+       <a href="https://github.com/solidify/jira-azuredevops-migrator">
+        Solidify Jira/Azure DevOps Migrator
+       </a>
+      </h3>
+      <p>
+       Detta verktyg funkar inte idag mellan TFS/Azure DevOps och TFS/Azure DevOps men det går att göra en export-funktion mot TFS/Azure DevOps istället för mot Jira och då kan man återanvända de konfigureringsmöjligheter som finns för mappning av work item typer och fält samt import-funktionen som redan går mot TFS/Azure DevOps. Det borde inte vara ett jättejobb att göra en ny export-funktion TFS/Azure DevOps iom att det finns verktyg som redan gör detta som man kan snegla på. Däremot bör man uppdatera projektet så att man kör REST-API:erna istället för SDK:erna för en modernare feel. Verktyget fokuserar på work item migrering och är således inte testat med testartefakter.
+      </p>
+      <h4 id="pros_3">
+       Pros:
+      </h4>
+      <p>
+       Färdigkompilerat program
+Migrerar mellan olika templates
+Bra dokumentation
+Konfigurerbart
+      </p>
+      <h4 id="cons_2">
+       Cons:
+      </h4>
+      <p>
+       Bygger på SDK:er som blir utdaterade
+Viss mappning sker i kod vilket gör det mindre flexibelt
+      </p>
+      <h3 id="conclusion">
+       Conclusion
+      </h3>
+      <p>
+       Jag skulle nog själv välja nkdAgility-verktyget pga dess kraftfullhet, flexibilitet och konfigurerbarhet. Det känns som ett stabilt verktyg där vi förmodligen skulle kunna bidra med en del på GitHub. Det skulle även vara intressant att göra en TFS/Azure DevOps-variant av Jira-exportprogrammet så man skulle kunna bygga upp en svit av exportprogram som vi kan ha tillsammans med importprogrammet till TFS/Azure DevOps. Alternativet skulle vara att uppdatera vårt TFS-verktyg men det känns som att Jira-verktyget har en bättre grund om man ändå måste utveckla något.
+Men för ett projekt som behöver migreras idag behövs ett färdigt verktyg och då skulle jag rekommendera nkdAgility Azure DevOps Migration Tool.
+      </p>
+     </div>
+    </td>
+    <td class="content_td" id="sidebar_td">
+     <div id="codeowners">
+      <p>
+       <a href="https://github.com/PerSundqvist">
+        Per Sundqvist (PerSundqvist)
+       </a>
+      </p>
+      <img class="gh_avatar" src="https://avatars.githubusercontent.com/u/56123436?v=4"/>
+     </div>
+     <div id="full_text_search">
+      <input id="full-text-search-input" onsearch="full_text_search();" type="search"/>
+      <div id="full_text_search_results">
+      </div>
+     </div>
+     <div id="index">
+      <input oninput="search(this.value);" type="search"/>
+      <ul>
+      </ul>
+      <li class="element_index_0" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System.html">
+        Solidify-Engineering-System
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Goto-Azure-DevOps.html">
+        Goto-Azure-DevOps
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Goto-Azure-DevOps/Tools-and-options-for-migration.html">
+        Tools-and-options-for-migration
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Goto-Azure-DevOps/Migrate-from-TFVC-to-Git-in-a-clean-way.html">
+        Migrate-from-TFVC-to-Git-in-a-clean-way
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Goto-Azure-DevOps/Clone-a-Hosted-XML-process-to-an-Inheritance-process.html">
+        Clone-a-Hosted-XML-process-to-an-Inheritance-process
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Goto-Azure-DevOps/Backup%2Dexport-Azure-DevOps-services.html">
+        Backup%2Dexport-Azure-DevOps-services
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Goto-Azure-DevOps/Migrate-from-OM-model-to-REST-api-for-Jira-to-Azure-DevOps-migration-tool.html">
+        Migrate-from-OM-model-to-REST-api-for-Jira-to-Azure-DevOps-migration-tool
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Goto-Azure-DevOps/Containerizing-Kontain.html">
+        Containerizing-Kontain
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events.html">
+        Events
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/Meetups.html">
+        Meetups
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/Meetups/Meetup-181022-%2D-Jessica.html">
+        Meetup-181022-%2D-Jessica
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/Meetups/Meetup-180828-%2D-VSTS-and-Azure-Kubernetes-Services.html">
+        Meetup-180828-%2D-VSTS-and-Azure-Kubernetes-Services
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/TechDays-2019.html">
+        TechDays-2019
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/TechDays-2019/TD19-%2D-S2-%2D-Insikt.html">
+        TD19-%2D-S2-%2D-Insikt
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/TechDays-2019/TD19-%2D-S1-%2D-Core.html">
+        TD19-%2D-S1-%2D-Core
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/TechDays-2019/TD19-%2D-Intro.html">
+        TD19-%2D-Intro
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/TechDays-2019/TD19-%2D-S3-%2D-Misc.html">
+        TD19-%2D-S3-%2D-Misc
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/TechDays-2019/Förberedelser-innan-presentationen.html">
+        Förberedelser-innan-presentationen
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/Local-DevOps-Bootcamp.html">
+        Local-DevOps-Bootcamp
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Events/Global-DevOps-Bootcamp.html">
+        Global-DevOps-Bootcamp
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-@-Scale.html">
+        DevOps-@-Scale
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-@-Scale/Analytics-research.html">
+        Analytics-research
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Containers.html">
+        Containers
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Containers/Practices.html">
+        Practices
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Archive.html">
+        Archive
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Archive/DevOps-Extensions.html">
+        DevOps-Extensions
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Archive/DevOps-Extensions/VSTS-Extensions.html">
+        VSTS-Extensions
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Archive/DevOps-Extensions/VSTS-Extensions/Auto-Create-Tasks.html">
+        Auto-Create-Tasks
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Archive/DevOps-Extensions/VSTS-Extensions/Auto-Create-Tasks/Sprint-1-Summary.html">
+        Sprint-1-Summary
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Archive/DevOps-Extensions/VSTS-Administration.html">
+        VSTS-Administration
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Archive/DevOps-Extensions/VSTS-Administration/Git-Management.html">
+        Git-Management
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Archive/Guidance.html">
+        Guidance
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Archive/Demos.html">
+        Demos
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Development.html">
+        Development
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Development/Version-control.html">
+        Version-control
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Development/Version-control/Versioning.html">
+        Versioning
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Development/Version-control/Git-essentials.html">
+        Git-essentials
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Development/Docker.html">
+        Docker
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Development/Docker/AZD-Build-Server-Agent-%2D-Windows-Server-2019-with-.NET-4.8.html">
+        AZD-Build-Server-Agent-%2D-Windows-Server-2019-with-.NET-4.8
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Training.html">
+        Training
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Training/Automated-testing.html">
+        Automated-testing
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Testing.html">
+        Testing
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Testing/Test-Practises.html">
+        Test-Practises
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Testing/Test-Tools.html">
+        Test-Tools
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Testing/Design-For-Testability.html">
+        Design-For-Testability
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Testing/Test-Strategies.html">
+        Test-Strategies
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service.html">
+        DevOps-as-a-Service
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Migration.html">
+        Migration
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Migration/Azure-DevOps-Migration.html">
+        Azure-DevOps-Migration
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Migration/TFVC-to-git-with-git%2Dtfs.html">
+        TFVC-to-git-with-git%2Dtfs
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Migration/SVN-to-git-with-subgit.html">
+        SVN-to-git-with-subgit
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Platform-support.html">
+        Platform-support
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Platform-support/Azure-DevOps-Server,-Upgrade.html">
+        Azure-DevOps-Server,-Upgrade
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Platform-support/Azure-DevOps-Server,-Installation.html">
+        Azure-DevOps-Server,-Installation
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Best-practice.html">
+        Best-practice
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Best-practice/Repos.html">
+        Repos
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Best-practice/Pipelines.html">
+        Pipelines
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevOps-as-a-Service/Best-practice/Extensions.html">
+        Extensions
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products.html">
+        Products
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub.html">
+        SyncHub
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures.html">
+        Migration-procedures
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Migration-of-pipelines-and-taskgroups.html">
+        Migration-of-pipelines-and-taskgroups
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Migration-of-pipelines-and-taskgroups/Importing-a-build-definition.html">
+        Importing-a-build-definition
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Prerequisites-for-migration.html">
+        Prerequisites-for-migration
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Prerequisites-for-migration/Preparations-project--and-teams-level.html">
+        Preparations-project--and-teams-level
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Prerequisites-for-migration/Preparations-before-migration,-organization-level.html">
+        Preparations-before-migration,-organization-level
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Migration-from-Azure-repos-to-GitHub.html">
+        Migration-from-Azure-repos-to-GitHub
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Migrating-Dashboards.html">
+        Migrating-Dashboards
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Migrate-test-plans-between-Azure-DevOps-projects.html">
+        Migrate-test-plans-between-Azure-DevOps-projects
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Template.html">
+        Template
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Migrating-Wikis.html">
+        Migrating-Wikis
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Migrating-Queries.html">
+        Migrating-Queries
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Migrating-Artifacts.html">
+        Migrating-Artifacts
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Migration-procedures/Migrate-Work-Items.html">
+        Migrate-Work-Items
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Database-migrations.html">
+        Database-migrations
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Terminology.html">
+        Terminology
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Azure-Repos-to-GitHub.html">
+        Azure-Repos-to-GitHub
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/How-to-use-a-container-for-SQL-server.html">
+        How-to-use-a-container-for-SQL-server
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Testing.html">
+        Testing
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Schedule-and-sync-design-ideas.html">
+        Schedule-and-sync-design-ideas
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/How-to-use-Azdo-To-Github-importer.html">
+        How-to-use-Azdo-To-Github-importer
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/How-to-configure-Auth0.html">
+        How-to-configure-Auth0
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Local-development-workflow.html">
+        Local-development-workflow
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/SyncHub/Building-with-FAKE.html">
+        Building-with-FAKE
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/NM-LocalFood.html">
+        NM-LocalFood
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/NM-LocalFood/Releases.html">
+        Releases
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/NM-LocalFood/Releases/Release-1,-Q4-2020.html">
+        Release-1,-Q4-2020
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/NM-LocalFood/Internal-documentation.html">
+        Internal-documentation
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/NM-LocalFood/Internal-documentation/Accounts.html">
+        Accounts
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/NM-LocalFood/Internal-documentation/Project-setup.html">
+        Project-setup
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/NM-LocalFood/Internal-documentation/New-developer%2Dsetup.html">
+        New-developer%2Dsetup
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/NM-LocalFood/Internal-documentation/Support.html">
+        Support
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech.html">
+        TG-RegTech
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Releases.html">
+        Releases
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Releases/Release-5,-2020.html">
+        Release-5,-2020
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Releases/Release-4,-Q4-2019.html">
+        Release-4,-Q4-2019
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Releases/Release-6,-Q1%2DQ2-2021.html">
+        Release-6,-Q1%2DQ2-2021
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Releases/Release-2,-April-2019.html">
+        Release-2,-April-2019
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Releases/Release-3,-Q2-2019.html">
+        Release-3,-Q2-2019
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Internal-documentation.html">
+        Internal-documentation
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Internal-documentation/Auth0-setup.html">
+        Auth0-setup
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Internal-documentation/Versioning-Policies,-instructions-and-text-modules.html">
+        Versioning-Policies,-instructions-and-text-modules
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Internal-documentation/Developer-&amp;-Support-info.html">
+        Developer-&amp;-Support-info
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Internal-documentation/Models.html">
+        Models
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Internal-documentation/RFA-Monitor.html">
+        RFA-Monitor
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Internal-documentation/Roles.html">
+        Roles
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/TG-RegTech/Internal-documentation/New-developer-%2D-setup.html">
+        New-developer-%2D-setup
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale.html">
+        @Scale
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Trial-leads-process.html">
+        Trial-leads-process
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Trial-leads-process/Email-templates-text.html">
+        Email-templates-text
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation.html">
+        Public-Documentation
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Get-started.html">
+        Get-started
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Get-started/Creating-a-SAFe-Program-Board.html">
+        Creating-a-SAFe-Program-Board
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Get-started/Conduct-PI-Planning-using-@Scale-and-Azure-DevOps.html">
+        Conduct-PI-Planning-using-@Scale-and-Azure-DevOps
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Get-started/Installing-@Scale.html">
+        Installing-@Scale
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Administration.html">
+        Administration
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Administration/Subscription-management.html">
+        Subscription-management
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Administration/Configuration-and-customization.html">
+        Configuration-and-customization
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Administration/Installing-on-Azure-DevOps-Server.html">
+        Installing-on-Azure-DevOps-Server
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Administration/Manage-licenses.html">
+        Manage-licenses
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Administration/Data-storage-and-privacy.html">
+        Data-storage-and-privacy
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Administration/Uninstalling-@Scale.html">
+        Uninstalling-@Scale
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Administration/Permissions.html">
+        Permissions
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Tutorials.html">
+        Tutorials
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Tutorials/Risk-management.html">
+        Risk-management
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Tutorials/Implementing-SAFe-with-Azure-DevOps-and-@Scale.html">
+        Implementing-SAFe-with-Azure-DevOps-and-@Scale
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Tutorials/PI-planning.html">
+        PI-planning
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Tutorials/Objectives-management.html">
+        Objectives-management
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Reference.html">
+        Reference
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Reference/Board.html">
+        Board
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Reference/Planning.html">
+        Planning
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Reference/Objectives.html">
+        Objectives
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Reference/Active-program-increment.html">
+        Active-program-increment
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Reference/Risks.html">
+        Risks
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Reference/Analytics.html">
+        Analytics
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/What-is-@Scale%3F.html">
+        What-is-@Scale%3F
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Troubleshooting-and-support.html">
+        Troubleshooting-and-support
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Why-use-@Scale%3F.html">
+        Why-use-@Scale%3F
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Resources.html">
+        Resources
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Public-Documentation/Roadmap.html">
+        Roadmap
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation.html">
+        Internal-documentation
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Extension-data.html">
+        Extension-data
+       </a>
+      </li>
+      <li class="element_index_5" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Extension-data/Migrate-settings-between-extension-versions.html">
+        Migrate-settings-between-extension-versions
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Battlecards-%2D-tool-comparisons.html">
+        Battlecards-%2D-tool-comparisons
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Stripe-price-management.html">
+        Stripe-price-management
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Demo-scripts.html">
+        Demo-scripts
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Release-process.html">
+        Release-process
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Configuration-Azure-DevOps-Server.html">
+        Configuration-Azure-DevOps-Server
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Subscription-process.html">
+        Subscription-process
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Stripe-refund.html">
+        Stripe-refund
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Logs.html">
+        Logs
+       </a>
+      </li>
+      <li class="element_index_4" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Internal-documentation/Custom-Work-Items.html">
+        Custom-Work-Items
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Releases.html">
+        Releases
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Planning-2021.html">
+        Planning-2021
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Strukturering-(under-arbete).html">
+        Strukturering-(under-arbete)
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/Agenda-Bring-SAFe-to-Azure-DevOps-promotion-meeting.html">
+        Agenda-Bring-SAFe-to-Azure-DevOps-promotion-meeting
+       </a>
+      </li>
+      <li class="element_index_3" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/@Scale/To-discuss-%2D-ideas-%2D-etc.html">
+        To-discuss-%2D-ideas-%2D-etc
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/Extensions-test-environments.html">
+        Extensions-test-environments
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/Demos-Internal-Development.html">
+        Demos-Internal-Development
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/Jira-Migration-Tool.html">
+        Jira-Migration-Tool
+       </a>
+      </li>
+      <li class="element_index_2" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Products/Compliance-Policy-Extension.html">
+        Compliance-Policy-Extension
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Monitoring.html">
+        Monitoring
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/DevTest-Lab.html">
+        DevTest-Lab
+       </a>
+      </li>
+      <li class="element_index_1" id="index_element">
+       <a href="/home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System/Getting-started-resources.html">
+        Getting-started-resources
+       </a>
+      </li>
+     </div>
+     <a href="/home/groove/dev/github-wiki-to-html/webroot/logout">
+      <button>
+       Log out
+      </button>
+     </a>
+    </td>
+   </tr>
+  </table>
+ </body>
+</html>

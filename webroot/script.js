@@ -24,8 +24,8 @@ function search(value)
 
 function full_text_search()
 {
-    referer_url = "https://zealous-river-0de318e03.azurestaticapps.net"
-    api_url = "https://fulltextsearch.norwayeast.azurecontainer.io"
+    referer_url = "file:///home/groove/dev/github-wiki-to-html/webroot/Solidify-Engineering-System"
+    api_url = "https://172.17.0.2:443"
     search_term = document.getElementById("full-text-search-input").value;
     console.log("Got here")
     //headers = {"ContentType": "text/html"}

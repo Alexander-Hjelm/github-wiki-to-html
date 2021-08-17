@@ -145,7 +145,15 @@ def append_full_text_search(full_text_search_api, webroot):
     div.append(input)
     div.append(search_results_div)
     return div
-    
+
+def append_logout_button():
+    a = BeautifulSoup("<a></a>", 'html.parser').a
+    a['href']=webroot+"logout"
+    button = BeautifulSoup("<button>Log out</button>", 'html.parser').button
+    a.append(button)
+    return a
+
+
 def make_doc_from_body(body):
     return "<html><head><title>Title</title></head><body><table id=main_content_table><tr><td id='main_content_td' class='content_td'><div id=main_content>{0}</td><td id='sidebar_td' class='content_td'></td></tr></table></div></body></html>".format(body)
 
@@ -170,11 +178,13 @@ def convert_and_save_file(src_path, target_path, input_wiki_path, stylesheet_pat
     codeowners_div = append_codeowners(input_wiki_path, src_path, gh_token)
     search_index_div = append_search_and_index(input_wiki_path, webroot)
     full_text_search_div = append_full_text_search(full_text_search_api, webroot)
+    logout_button = append_logout_button()
 
     sidebar_td = soup.find("td", {"id": "sidebar_td"})
     sidebar_td.append(codeowners_div)
     sidebar_td.append(full_text_search_div)
     sidebar_td.append(search_index_div)
+    sidebar_td.append(logout_button)
     make_dir(target_path)
     with open(target_path, 'w') as f:
         f.write(soup.prettify())
@@ -190,6 +200,12 @@ def rewrite_fulltext_search_endpoints(output_path, full_text_search_endpoint, re
             lines[i] = "    api_url = \""+full_text_search_endpoint+"\""
     with open(output_path+"script.js", 'w') as f:
         f.write('\n'.join(lines) + '\n')
+
+def build_and_save_login_page(webroot):
+    html = BeautifulSoup("<html><head><title>Log in</title></head><body><a href={0}login><button>Log in</button></a></body></html>".format(webroot), 'html.parser').html
+    with open(webroot+"login.html", 'w') as f:
+        f.write(html.prettify())
+    
 
 ### Argument parsing
 argv = sys.argv[1:]
@@ -235,10 +251,11 @@ if not webroot:
 ### Rewrite endpoints in js files
 rewrite_fulltext_search_endpoints(output_path, full_text_search_endpoint, referer_endpoint)
 
+### Generate login page
+build_and_save_login_page(webroot)
+
 ### Convert markdown to html, file by file
-
 written_index_file = False
-
 for root, dirs, files in os.walk(input_wiki_path, topdown=False):
    for name in files:
        if(name.endswith(".md")):
