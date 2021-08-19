@@ -8,6 +8,7 @@ import os
 import sys
 import glob
 from github import Github
+import urllib.parse
 
 # Config
 gh_users_cache = {}
@@ -99,10 +100,11 @@ def build_index_html(index, ul, level, webroot):
         li = BeautifulSoup("<li class=element_index_{0}></li>".format(level), 'html.parser').li
         li['id'] = "index_element"
         a = BeautifulSoup("<a></a>", 'html.parser').a
-        a['href'] = webroot + k + ".html"
-        file_name = k
-        if(k.endswith('/')):
-            file_name = k[:-1]
+        k_enc = urllib.parse.quote(k)
+        a['href'] = webroot + k_enc + ".html"
+        file_name = k_enc
+        if(k_enc.endswith('/')):
+            file_name = k_enc[:-1]
         a.string = file_name.split('/')[-1]
         li.append(a)
         ul.append(li)
