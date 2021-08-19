@@ -25,6 +25,12 @@ steps:
   - checkout: self
   - checkout: sample-wiki
 
+  - task: FileTransform@1
+    inputs:
+      folderPath: '$(System.DefaultWorkingDirectory)/**'
+      fileType: 'json'
+      targetFiles: 'staticwebapp.config.json'
+
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
