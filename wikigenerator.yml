@@ -34,6 +34,11 @@ steps:
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
+      script: 'cat $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/staticwebapp.config.json'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
       script: 'pip3 install beautifulsoup4 pygithub markdown'
 
   - task: PythonScript@0
