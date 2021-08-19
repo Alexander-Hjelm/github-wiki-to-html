@@ -25,11 +25,18 @@ steps:
   - checkout: self
   - checkout: sample-wiki
 
-  - task: FileTransform@1
-    inputs:
-      folderPath: '$(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot'
-      fileType: 'json'
-      targetFiles: 'staticwebapp.config.json'
+- task: replacetokens@3
+  inputs:
+    targetFiles: '**/*.json'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: false
+    tokenPrefix: '__'
+    tokenSuffix: '__'
+    useLegacyPattern: false
+    enableTransforms: false
+    enableTelemetry: true
 
   - task: PowerShell@2
     inputs:
