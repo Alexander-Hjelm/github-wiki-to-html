@@ -13,13 +13,13 @@ resources:
   repositories:
     - repository: sample-wiki
       type: git
-      name: confluence-migration-poc
-  pipelines:
-  - pipeline: wiki-ci   # Name of the pipeline resource
-    source: confluence-migration-poc # Name of the pipeline referenced by the pipeline resource
-    trigger: 
-      branches:
-      - master
+      name: sample-wiki
+#  pipelines:
+#  - pipeline: wiki-ci   # Name of the pipeline resource
+#    source: confluence-migration-poc # Name of the pipeline referenced by the pipeline resource
+#    trigger: 
+#      branches:
+#      - master
 
 steps:
   - checkout: self
@@ -34,7 +34,7 @@ steps:
     inputs:
       scriptSource: 'filePath'
       scriptPath: '$(System.DefaultWorkingDirectory)/github-wiki-to-html/wiki-generator.py'
-      arguments: '-w $(System.DefaultWorkingDirectory)/confluence-migration-poc/ -s stylesheet.css -j script.js -i images -t $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/ -r / -p $(gh_token) -f https://fulltextsearch.norwayeast.azurecontainer.io -e https://zealous-river-0de318e03.azurestaticapps.net'
+      arguments: '-w $(System.DefaultWorkingDirectory)/sample-wiki/ -s stylesheet.css -j script.js -i images -t $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/ -r / -p $(gh_token) -f https://fulltextsearch.norwayeast.azurecontainer.io -e https://zealous-river-0de318e03.azurestaticapps.net'
 
   - task: AzureStaticWebApp@0
     inputs:
