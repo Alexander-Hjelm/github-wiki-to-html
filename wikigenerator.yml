@@ -27,7 +27,7 @@ steps:
 
   - task: FileTransform@1
     inputs:
-      folderPath: '$(System.DefaultWorkingDirectory)/**'
+      folderPath: '$(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot'
       fileType: 'json'
       targetFiles: 'staticwebapp.config.json'
 
