@@ -33,9 +33,6 @@
       ]
     }
   ],
-  "navigationFallback": {
-    "rewrite": "login.html"
-  },
   "responseOverrides": {
     "401": {
       "redirect": "/login.html",
