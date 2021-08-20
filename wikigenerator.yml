@@ -25,6 +25,24 @@ steps:
   - checkout: self
   - checkout: sample-wiki
 
+  - task: replacetokens@3
+    inputs:
+      targetFiles: '**/*.json'
+      encoding: 'auto'
+      writeBOM: true
+      actionOnMissing: 'warn'
+      keepToken: false
+      tokenPrefix: '__'
+      tokenSuffix: '__'
+      useLegacyPattern: false
+      enableTransforms: false
+      enableTelemetry: false
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: 'cat $(System.DefaultWorkingDirectory)/github-wiki-to-html/webroot/staticwebapp.config.json'
+
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
