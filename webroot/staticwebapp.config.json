@@ -1,33 +1,7 @@
 {
   "routes": [
     {
-      "route": "/Decision.html",
-      "allowedRoles": [
-        "authenticated"
-      ]
-    },
-    {
-      "route": "/test",
-      "allowedRoles": [
-        "authenticated"
-      ]
-    },
-    {
-      "route": "/login",
-      "redirect": "/.auth/login/azureActiveDirectory"
-    },
-    {
-      "route": "/logout",
-      "redirect": "/.auth/logout"
-    },
-    {
-      "route": "/login.html",
-      "allowedRoles": [
-        "anonymous"
-      ]
-    },
-    {
-      "route": "/*",
+      "route": "/",
       "allowedRoles": [
         "authenticated"
       ]
@@ -35,7 +9,7 @@
   ],
   "responseOverrides": {
     "401": {
-      "redirect": "/login.html",
+      "redirect": "/.auth/login/aad",
       "statusCode": 302
     }
   },
@@ -52,7 +26,9 @@
           "openIdIssuer": "https://login.microsoftonline.com/1f39fa86-9689-41da-b81e-d60e10615bf0/v2.0",
           "clientIdSettingName": "04670b4b-78d4-422b-83cb-553627001cf8",
           "clientSecretSettingName": ".t.2U0._n9_hngI3r8Pr9~r-ABuonKuqoe"
-        }
+        },
+        "userDetailsClaim": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+      }
       }
     }
   }
