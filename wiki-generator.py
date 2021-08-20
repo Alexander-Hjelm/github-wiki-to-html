@@ -102,9 +102,9 @@ def build_index_html(index, ul, level, webroot):
         a = BeautifulSoup("<a></a>", 'html.parser').a
         k_enc = urllib.parse.quote(k)
         a['href'] = webroot + k_enc + ".html"
-        file_name = k_enc
+        file_name = urllib.parse.unquote(k)
         if(k_enc.endswith('/')):
-            file_name = k_enc[:-1]
+            file_name = file_name[:-1]
         a.string = file_name.split('/')[-1]
         li.append(a)
         ul.append(li)
