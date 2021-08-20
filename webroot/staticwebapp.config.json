@@ -5,11 +5,27 @@
       "allowedRoles": [
         "authenticated"
       ]
+    },
+    {
+      "route": "/.auth/login/github",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/facebook",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/google",
+      "statusCode": 404
     }
   ],
   "responseOverrides": {
     "401": {
-      "redirect": "/.auth/login/aad",
+      "redirect": "/.auth/login/myProvider",
       "statusCode": 302
     }
   },
@@ -21,13 +37,23 @@
   },
   "auth": {
     "identityProviders": {
-      "azureActiveDirectory": {
-        "registration": {
-          "openIdIssuer": "https://login.microsoftonline.com/1f39fa86-9689-41da-b81e-d60e10615bf0/v2.0",
-          "clientIdSettingName": "04670b4b-78d4-422b-83cb-553627001cf8",
-          "clientSecretSettingName": ".t.2U0._n9_hngI3r8Pr9~r-ABuonKuqoe"
-        },
-        "userDetailsClaim": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+      "customOpenIdConnectProviders": {
+        "myProvider": {
+          "registration": {
+            "clientIdSettingName": "04670b4b-78d4-422b-83cb-553627001cf8",
+            "clientCredential": {
+              "clientSecretSettingName": ".t.2U0._n9_hngI3r8Pr9~r-ABuonKuqoe"
+            },
+            "openIdConnectConfiguration": {
+              "wellKnownOpenIdConfiguration": "https://login.microsoftonline.com/1f39fa86-9689-41da-b81e-d60e10615bf0/v2.0/.well-known/openid-configuration"
+            }
+          },
+          "login": {
+            "nameClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+            "scopes": [],
+            "loginParameterNames": []
+          }
+        }
       }
     }
   }
