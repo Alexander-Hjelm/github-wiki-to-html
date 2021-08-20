@@ -2,11 +2,15 @@
   "routes": [
     {
       "route": "/Decision.html",
-      "allowedRoles": ["authenticated"]
+      "allowedRoles": [
+        "authenticated"
+      ]
     },
     {
       "route": "/test",
-      "allowedRoles": ["authenticated"]
+      "allowedRoles": [
+        "authenticated"
+      ]
     },
     {
       "route": "/login",
@@ -18,11 +22,15 @@
     },
     {
       "route": "/login.html",
-      "allowedRoles": ["anonymous"]
+      "allowedRoles": [
+        "anonymous"
+      ]
     },
     {
       "route": "/*",
-      "allowedRoles": ["authenticated"]
+      "allowedRoles": [
+        "authenticated"
+      ]
     }
   ],
   "navigationFallback": {
@@ -43,9 +51,8 @@
   "auth": {
     "identityProviders": {
       "azureActiveDirectory": {
-        "userDetailsClaim": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
         "registration": {
-          "openIdIssuer": "https://login.microsoftonline.com/1f39fa86-9689-41da-b81e-d60e10615bf0",
+          "openIdIssuer": "https://login.microsoftonline.com/1f39fa86-9689-41da-b81e-d60e10615bf0/v2.0",
           "clientIdSettingName": "04670b4b-78d4-422b-83cb-553627001cf8",
           "clientSecretSettingName": ".t.2U0._n9_hngI3r8Pr9~r-ABuonKuqoe"
         }
