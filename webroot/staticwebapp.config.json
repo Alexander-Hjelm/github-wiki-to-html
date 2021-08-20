@@ -47,7 +47,7 @@
         "registration": {
           "openIdIssuer": "https://login.microsoftonline.com/1f39fa86-9689-41da-b81e-d60e10615bf0",
           "clientIdSettingName": "04670b4b-78d4-422b-83cb-553627001cf8",
-          "clientSecretSettingName": "__AAD_CLIENT_SECRET__"
+          "clientSecretSettingName": ".t.2U0._n9_hngI3r8Pr9~r-ABuonKuqoe"
         }
       }
     }
