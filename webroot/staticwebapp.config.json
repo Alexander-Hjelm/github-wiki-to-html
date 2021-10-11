@@ -8,11 +8,11 @@
     },
     {
       "route": "/login",
-      "statusCode": "/.auth/login/aad"
+      "rewrite": "/.auth/login/aad"
     },
     {
       "route": "/logout",
-      "statusCode": "/.auth/logout"
+      "rewrite": "/.auth/logout"
     },
     {
       "route": "/.auth/login/github",
