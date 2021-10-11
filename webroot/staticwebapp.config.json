@@ -1,10 +1,18 @@
 {
   "routes": [
     {
-      "route": "/",
+      "route": "/*",
       "allowedRoles": [
         "authenticated"
       ]
+    },
+    {
+      "route": "/login",
+      "statusCode": "/.auth/login/aad"
+    },
+    {
+      "route": "/logout",
+      "statusCode": "/.auth/logout"
     },
     {
       "route": "/.auth/login/github",
